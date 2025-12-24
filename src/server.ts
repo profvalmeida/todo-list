@@ -43,7 +43,7 @@ app.use(router);
 
 app.use(errorMiddleware);
 
-const PORT = ENV.PORT || 3333;
+const PORT = process.env.PORT || 3333;
 
 app.listen(PORT, () => {
   loggerPino.info(`${ENV.APP_NAME} rodando em http://localhost:${ENV.PORT}`);
