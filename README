@@ -1,0 +1,11 @@
+src/
+ ├─ server.ts
+ ├─ routes.ts
+ ├─ controllers/
+ │   ├─ user.controller.ts
+ │   └─ task.controller.ts
+ ├─ services/
+ │   ├─ user.service.ts
+ │   └─ task.service.ts
+ └─ lib/
+     └─ prisma.ts

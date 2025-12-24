@@ -1,0 +1,31 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const user_controller_1 = require("../controllers/user.controller");
+const task_controller_1 = require("../controllers/task.controller");
+const auth_controller_1 = require("../controllers/auth.controller");
+const validate_1 = require("../middlewares/validate");
+const user_schema_1 = require("../schemas/user.schema");
+const auth_schema_1 = require("../schemas/auth.schema");
+const task_schema_1 = require("../schemas/task.schema");
+const auth_1 = require("../middlewares/auth");
+const role_1 = require("../middlewares/role");
+const router = (0, express_1.Router)();
+const userController = new user_controller_1.UserController();
+const taskController = new task_controller_1.TaskController();
+const authController = new auth_controller_1.AuthController();
+// User routes
+router.post("/users", auth_1.authMiddleware, (0, role_1.roleMiddleware)("ADMIN"), (0, validate_1.validate)(user_schema_1.createUserSchema), userController.create);
+router.get("/users", auth_1.authMiddleware, (0, role_1.roleMiddleware)("ADMIN"), userController.list);
+router.get("/users/:id", auth_1.authMiddleware, (0, role_1.roleMiddleware)("ADMIN"), userController.getById);
+router.put("/users/:id", auth_1.authMiddleware, (0, role_1.roleMiddleware)("ADMIN"), userController.update);
+router.delete("/users/:id", auth_1.authMiddleware, (0, role_1.roleMiddleware)("ADMIN"), userController.delete);
+//Taks routes
+router.post("/tasks", auth_1.authMiddleware, (0, validate_1.validate)(task_schema_1.createTaskSchema), taskController.create);
+router.get("/tasks", auth_1.authMiddleware, taskController.list);
+router.get("/tasks/:id", auth_1.authMiddleware, taskController.getById);
+router.put("/tasks/:id", auth_1.authMiddleware, (0, validate_1.validate)(task_schema_1.updateTaskSchema), taskController.update);
+router.delete("/tasks/:id", auth_1.authMiddleware, taskController.delete);
+router.post("/login", (0, validate_1.validate)(auth_schema_1.loginSchema), authController.login);
+router.post("/refresh", authController.refresh);
+exports.default = router;
