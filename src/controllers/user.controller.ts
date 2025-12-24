@@ -9,8 +9,6 @@ export class UserController {
         loggerPino.info("Cadastrando um novo usuário");
 
         const user = await this.userService.create(req.body);
-
-        loggerPino.info({ userId: user.id }, "Usuário criado com sucesso");
         
         const { password: _, ...semSenha} = user;
 
