@@ -32,8 +32,7 @@ app.use((0, express_rate_limit_1.default)({
 app.use(logger_1.logger);
 app.use(routes_1.default);
 app.use(error_1.errorMiddleware);
-// Porta vinda do ambiente ou fallback local
-const PORT = env_1.ENV.PORT || 3333;
+const PORT = process.env.PORT || 3333;
 app.listen(PORT, () => {
     logger_2.default.info(`${env_1.ENV.APP_NAME} rodando em http://localhost:${env_1.ENV.PORT}`);
 });
