@@ -43,7 +43,6 @@ app.use(router);
 
 app.use(errorMiddleware);
 
-// Porta vinda do ambiente ou fallback local
 const PORT = ENV.PORT || 3333;
 
 app.listen(PORT, () => {
